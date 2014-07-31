@@ -4,10 +4,12 @@ Fermi-LAT[官方教程](http://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/bi
 
 ## 目录结构
 
-M87  
+M87
+
 >data_binned  
 >>events  
->>M87.fits  
+>>M87.fits
+
 >binned  
 >>where to put all the [scripts](binned/)  
 
