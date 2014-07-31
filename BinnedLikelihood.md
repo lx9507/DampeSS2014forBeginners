@@ -14,14 +14,14 @@ M87
 
 >binned
 
->>where to put all the [scripts](/binned/)
+>>where to put all the [scripts](binned/)
 
 
 ## 变量定义
 
 最好考虑多脚本之间的重用特性。
 
-[var_common.gts](/binned/var_common.gts):
+[var_common.gts](binned/var_common.gts):
 ```bash
 #!/bin/bash
 
@@ -56,7 +56,7 @@ par_emax=200000
 
 gtmktime, gtltcube, gtexpcube2.
 
-[sc_filter.gts](/binned/sc_filter.gts):
+[sc_filter.gts](binned/sc_filter.gts):
 ```bash
 #!/bin/bash
 
@@ -77,7 +77,7 @@ echo
 
 gtbin.
 
-[cmap.gts](/binned/cmap.gts):
+[cmap.gts](binned/cmap.gts):
 ```bash
 #!/bin/bash
 
@@ -89,13 +89,13 @@ echo
 ```
 
 counts map:
-![counts map](/binned/M87_cmap.png)
+![counts map](binned/M87_cmap.png)
 
 ## Binned likelihood
 
 gtbin, gtsrcmaps, gtlike.
 
-[like_binned.gts](/binned/like_binned.gts):
+[like_binned.gts](binned/like_binned.gts):
 ```bash
 #!/bin/bash
 
@@ -113,14 +113,14 @@ echo
 ```
 
 两次gtlike的plot:
-![DRMNFB](/binned/M87_binned_DRMNFB.png)
-![NEWMINUIT](/binned/M87_binned_NEWMINUIT.png)
+![DRMNFB](binned/M87_binned_DRMNFB.png)
+![NEWMINUIT](binned/M87_binned_NEWMINUIT.png)
 
 ## 计算residual map作为对结果的检查
 
 gtbin, gtmodel, farith.
 
-[residual.gts](/binned/residual.gts):
+[residual.gts](binned/residual.gts):
 ```bash
 #!/bin/bash
 
@@ -140,4 +140,4 @@ echo
 ```
 
 残差图：
-![residual map](/binned/M87_residual.png)
+![residual map](binned/M87_residual.png)
