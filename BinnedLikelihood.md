@@ -4,17 +4,25 @@ Fermi-LAT[官方教程](http://fermi.gsfc.nasa.gov/ssc/data/analysis/scitools/bi
 
 ## 目录结构
 
-M87
+M87  
+>data_binned  
+>>events  
+>>M87.fits  
+>binned  
+>>where to put all the [scripts](binned/)  
 
->data_binned
 
->>events
+## 数据选取
 
->>M87.fits
+* SOURCE data (evclass=2)
 
->binned
+* 能量范围：200MeV - 200GeV
 
->>where to put all the [scripts](binned/)
+* 时间范围：第9周至第313周 (MET 239557417 - MET 423454364
+
+* ROI中心：(RA, DEC) = (187.706, 12.3911) degree
+
+* ROI半径：10 degrees
 
 
 ## 变量定义
@@ -90,6 +98,35 @@ echo
 
 counts map:
 ![counts map](binned/M87_cmap.png)
+
+
+## 生成模型xml文件
+
+使用[make2FGLxml](http://fermi.gsfc.nasa.gov/ssc/data/analysis/user/)包来生成与当前数据相关的2FGL源的model文件。
+
+[model.py](binned/model.py):
+```python
+# For P7REP_SOURCE_V15 data, ST version v9r33p0
+from make2FGLxml import *
+import os
+import commands as cmd
+
+srcfile = cmd.getoutput(". ./var_common.gts && echo $file_filtered_gti")
+catalog_dir = os.environ.get('HOME') + '/data_Fermi/catalog'
+
+mymodel = srcList(catalog_dir + '/gll_psc_v08.fit',
+                  srcfile, 'model.xml')
+pathtodiffusefiles = os.environ.get('FERMI_DIR') + '/refdata/fermi/galdiffuse'
+mymodel.makeModel(pathtodiffusefiles + '/gll_iem_v05_rev1.fit',
+                  'gll_iem_v05',
+                  pathtodiffusefiles + '/iso_source_v05_rev1.txt',
+                  'iso_source_v05',
+                  extDir=catalog_dir + '/Templates')
+```
+
+生成该文件后，还要手动进行修改，目的是：  
+1. 增加目标源（如不在2FGL中），或修改目标源名称以便识别（如在2FGL中，不是必须）；  
+2. 固定一部分参数以降低不必要的计算量。
 
 ## Binned likelihood
 
