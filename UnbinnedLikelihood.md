@@ -150,8 +150,8 @@ echo
 ```
 
 两次gtlike的plot:
-![DRMNFB](unbinned/M87_binned_DRMNFB.png)
-![NEWMINUIT](unbinned/M87_binned_NEWMINUIT.png)
+![DRMNFB](unbinned/M87_unbinned_DRMNFB.png)
+![NEWMINUIT](unbinned/M87_unbinned_NEWMINUIT.png)
 
 ## 计算TS map
 
