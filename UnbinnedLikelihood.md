@@ -62,7 +62,7 @@ par_emax=200000
 
 ## 与飞船有关的计算
 
-gtmktime, gtltcube, gtexpcube2.
+gtmktime, gtltcube, gtexpmap.
 
 [sc_filter.gts](unbinned/sc_filter.gts):
 ```bash
