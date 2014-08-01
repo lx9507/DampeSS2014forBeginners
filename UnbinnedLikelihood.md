@@ -149,8 +149,7 @@ gtlike irfs=$par_irfs expcube=$file_ltcube srcmdl=$file_model_1st statistic=UNBI
 echo
 ```
 
-两次gtlike的plot:
-![DRMNFB](unbinned/M87_unbinned_DRMNFB.png)
+第二次gtlike(NEWMINUIT)的plot:
 ![NEWMINUIT](unbinned/M87_unbinned_NEWMINUIT.png)
 
 ## 计算TS map
