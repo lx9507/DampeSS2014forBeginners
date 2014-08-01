@@ -7,4 +7,6 @@ python model.py &&
 cp model.xml $file_model_initial &&
 ./like_binned.gts &&
 ./residual.gts &&
+./tsmap.gts &&
+
 echo
