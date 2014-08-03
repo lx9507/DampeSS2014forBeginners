@@ -9,7 +9,6 @@ file_spacecraft=~/data_Fermi/spacecraft.fits
 file_cmap=${par_srcname}_cmap.fits
 file_ccube=${par_srcname}_ccube.fits
 file_ltcube=${par_srcname}_ltcube.fits
-#file_expmap=${par_srcname}_expmap.fits
 file_expcube=${par_srcname}_expcube.fits
 file_srcmap=${par_srcname}_srcmap.fits
 file_model_initial=model_input_binned.xml
@@ -25,3 +24,8 @@ par_ra=`echo $position | cut -d , -f 1`
 par_dec=`echo $position | cut -d , -f 2`
 par_emin=200
 par_emax=200000
+
+par_nxpix=140
+par_nypix=140
+par_binsz=0.1
+par_enumbins=30
