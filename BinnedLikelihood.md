@@ -196,3 +196,6 @@ gttsmap statistic=BINNED scfile=$file_spacecraft evfile=$file_filtered_gti cmap=
 
 echo
 ```
+
+TS map:
+![TS map](binned/M87_tsmap_binned.png)

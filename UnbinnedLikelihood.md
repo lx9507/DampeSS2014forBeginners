@@ -163,3 +163,6 @@ gttsmap evfile=$file_filtered_gti scfile=$file_spacecraft expmap=$file_expmap ex
 
 echo
 ```
+
+TS map:
+![TS map](unbinned/M87_tsmap_unbinned.png)
