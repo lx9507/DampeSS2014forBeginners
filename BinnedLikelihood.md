@@ -173,7 +173,7 @@ gtbin evfile=$file_filtered_gti scfile=$file_spacecraft outfile=$file_cmap algor
 
 gtmodel srcmaps=$file_srcmap srcmdl=$file_model_final outfile=$file_modelpred irfs=$par_irfs expcube=$file_ltcube bexpmap=$file_expcube &&
 
-farith $file_cmap $file_modelpred $file_residual SUB &&
+farith $file_cmap $file_modelpred $file_residual SUB clobber=yes &&
 
 echo
 ```
