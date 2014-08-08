@@ -48,6 +48,7 @@ M87
 ## 跑SED
 
 废话不多说，直接上code，自认为可读性良好，相信大家都能看懂。。。
+[sed.gts](sed/sed.gts):
 ```bash
 #!/bin/bash
 
