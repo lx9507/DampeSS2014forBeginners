@@ -4,8 +4,8 @@ set tics scale 2
 set log xy
 set xlabel 'E [GeV]'
 set ylabel 'E^2dN/dE [GeV cm^{-2} s^{-1}]'
-set xr [0.166666666667:239.9976]
-set yr [1.26831719088e-10:9.32399889837e-09]
+set xr [0.1588656999:251.78248058]
+set yr [1.8959480807e-10:8.34516804726e-09]
 set format y '10^{%L}'
 set key font ',18'
 
