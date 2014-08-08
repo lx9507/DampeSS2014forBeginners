@@ -76,12 +76,13 @@ do
   par_emax_g=`awk "BEGIN{print $par_emax/1000}"`
   file_model_1st=$dir_results/model_1st_${par_emin}_$par_emax.xml
   file_model_final=$dir_results/model_final_${par_emin}_$par_emax.xml
+  file_model_ul=$dir_results/model_ul_${par_emin}_$par_emax.xml
   file_result_1st=$dir_results/result_1st_${par_emin}_$par_emax.dat
   file_result_final=$dir_results/result_final_${par_emin}_$par_emax.dat
 
   gtbin evfile=$file_filtered_gti scfile=$file_spacecraft outfile=$file_ccube algorithm=CCUBE ebinalg=LOG emin=$par_emin emax=$par_emax enumbins=$par_enumbins nxpix=$par_nxpix nypix=$par_nypix binsz=$par_binsz coordsys=CEL xref=$par_ra yref=$par_dec axisrot=0 proj=AIT &&
   gtexpcube2 infile=$file_ltcube cmap=none outfile=$file_expcube irfs=$par_irfs nxpix=400 nypix=400 binsz=0.2 coordsys=CEL xref=$par_ra yref=$par_dec axisrot=0 proj=AIT ebinalg=LOG emin=$par_emin emax=$par_emax enumbins=$par_enumbins ebinfile=none &&
-  gtsrcmaps scfile=$file_spacecraft expcube=$file_ltcube cmap=$file_ccube srcmdl=$file_model_initial bexpmap=$file_expcube outfile=$file_srcmap irfs=$par_irfs ptsrc=no &&
+  gtsrcmaps scfile=$file_spacecraft expcube=$file_ltcube cmap=$file_ccube srcmdl=$file_model_initial bexpmap=$file_expcube outfile=$file_srcmap irfs=$par_irfs ptsrc=yes &&
   gtlike irfs=$par_irfs expcube=$file_ltcube srcmdl=$file_model_initial statistic=BINNED optimizer=DRMNFB evfile=$file_filtered_gti scfile=$file_spacecraft cmap=$file_srcmap bexpmap=$file_expcube sfile=$file_model_1st results=$file_result_1st &&
   gtlike irfs=$par_irfs expcube=$file_ltcube srcmdl=$file_model_1st statistic=BINNED optimizer=NEWMINUIT evfile=$file_filtered_gti scfile=$file_spacecraft cmap=$file_srcmap bexpmap=$file_expcube sfile=$file_model_final results=$file_result_final &&
 
@@ -97,7 +98,9 @@ do
     echo "$par_emin_g $par_emax_g $flux $TS" >> flux_tmp
   else
     echo "#$par_emin_g $par_emax_g $flux $TS" >> flux_tmp &&
-    python ul.py ul.dat $par_srcname $par_irfs $par_emin $par_emax $file_srcmap $file_ltcube $file_expcube $file_model_final &&
+    # fix all parameters of the target source in the model file used by the Upper Limit calculation.
+    awk 'BEGIN{tag=0} /^.*'$par_srcname'/{tag=1}{if(tag==1) sub(/free=\"1\"/, "free=\"0\""); print}/^.*<\/source>$/{tag=0}' $file_model_final > $file_model_ul &&
+    python ul.py ul.dat $par_srcname $par_irfs $par_emin $par_emax $file_srcmap $file_ltcube $file_expcube $file_model_ul &&
     ul=`cat ul.dat | sed 's/^\[\([^ ]*\).*$/\1/'` &&
     echo "$par_emin_g $par_emax_g $ul 0 -1e9" >> flux_tmp &&
     rm -rf ul.dat &&
@@ -116,6 +119,9 @@ gnuplot sed.plt
 2. [plt_gen.py](sed/plt_gen.py)，这个脚本是根据SED计算得到的[flux.dat](sed/flux.dat)，
 完善Gnuplot绘图脚本草稿[sed.plt.in](sed/sed.plt.in)得到最终绘图脚本[sed.plt](sed/sed.plt).
 
+另外需要注意的是，计算upper limit时所用的model文件中，目标源(M87)最多只能放开第一个Prefactor参数，
+其实Prefactor放不放开没任何区别，我的脚本中就把目标源的参数全固定了。
+
 得到的结果data如下：  
 [flux.dat](sed/flux.dat)
 ```
@@ -130,7 +136,7 @@ gnuplot sed.plt
 25.178    50.237   6.30638e-12  1.28091e-12  5.62373
 50.237    100.236  1.26951e-11  9.90711e-12  11.6395
 #100.236  199.998  5.588e-12    8.71269e-13  3.37174
-100.236   199.998  2.32e-11     0            -1e9
+100.236   199.998  2.31e-11     0            -1e9
 ```
 
 *代码中的一些细节处理建议大家仔细看一下。*
