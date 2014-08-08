@@ -23,7 +23,7 @@ M87
 
 ## 产生分bin文件
 
-运行[eranges.gts](sed/eranges.gts)，输入分bin的个数（本例中为10），即可得到分bin的文件：
+运行[eranges.gts](sed/eranges.gts)，输入分bin的个数（本例中为10），即可得到分bin的文件：  
 [eranges.dat](sed/eranges.dat):
 ```bash
 200
@@ -117,7 +117,7 @@ gnuplot sed.plt
 2. [plt_gen.py](sed/plt_gen.py)，这个脚本是根据SED计算得到的[flux.dat](sed/flux.dat)，
 完善Gnuplot绘图脚本草稿[sed.plt.in](sed/sed.plt.in)得到最终绘图脚本[sed.plt](sed/sed.plt).
 
-得到的结果data如下：
+得到的结果data如下：  
 [flux.dat](sed/flux.dat)
 ```
 #Emin     Emax     Flux         FluxErr      TS
