@@ -1,0 +1,14 @@
+set term post eps solid enhanced color "Helvetica" 24 dl 4
+set out "srcname_sed.eps"
+set tics scale 2
+set log xy
+set xlabel 'E [GeV]'
+set ylabel 'E^2dN/dE [GeV cm^{-2} s^{-1}]'
+set xr
+set yr
+set format y '10^{%L}'
+set key font ',18'
+
+#set arrow
+
+plot 'flux.dat' u (sqrt($1*$2)):($3/($2-$1)*$1*$2):1:2:(($3-$4)/($2-$1)*$1*$2):(($3+$4)/($2-$1)*$1*$2)  t 'srcname' w xye pt 7 ps 0.8 lw 2 lc rgb 'red'

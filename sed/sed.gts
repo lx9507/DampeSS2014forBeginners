@@ -1,54 +1,3 @@
-# Spectral Energy Distribution (SED)
-
-## 目录结构
-
-M87
-
->data_binned  
->>M87.fits
-
->binned  
->>[var_comman.gts](binned/var_common.gts)  
->>M87_gti.fits  
->>M87_ltcube.fits
-
->sed  
->>[sed.gts](sed/sed.gts)  
->>[ul.py](sed/ul.py)  
->>[eranges.gts](sed/eranges.gts)  
->>[eranges.dat](sed/eranges.dat)  
->>[plt_gen.py](sed/plt_gen.py)  
->>[sed.plt.in](sed/sed.plt.in)  
->>[model_input_sed.xml](sed/model_input_sed.xml)
-
-## 产生分bin文件
-
-运行[eranges.gts](sed/eranges.gts)，输入分bin的个数（本例中为10），即可得到分bin的文件：
-[eranges.dat](sed/eranges.dat):
-```bash
-200
-399
-796
-1589
-3170
-6325
-12619
-25178
-50237
-100236
-199998
-```
-注意，可以用#来注释行，便于能量bin的合并（统计量严重不足时）。
-
-## 模型文件的选择
-
-如果没有特殊情况或特别要求的话，建议选用全能段gtlike(binned)得到的输出model文件来作为SED计算时gtlike的输入model，
-不过最好把目标源(M87)的Prefactor的拟合范围的上边界放宽一些，以保证在计算上限时不会走到边界。
-
-## 跑SED
-
-废话不多说，直接上code，自认为可读性良好，相信大家都能看懂。。。
-```bash
 #!/bin/bash
 
 ln -sf ../binned/var_common.gts var_common.gts
@@ -111,15 +60,3 @@ rm -rf flux_tmp
 
 python plt_gen.py $par_srcname
 gnuplot sed.plt
-```
-其中调用了两个python脚本：  
-1. [ul.py](sed/ul.py)，这是用来计算上限的，TS小于设定值时会触发调用。  
-2. [plt_gen.py](sed/plt_gen.py)，这个脚本是根据SED计算得到的[flux.dat](sed/flux.dat)，
-完善Gnuplot绘图脚本草稿[sed.plt.in](sed/sed.plt.in)得到最终绘图脚本[sed.plt](sed/sed.plt).
-
-代码中的一些细节处理建议大家仔细看一下。
-
-## 最终结果
-
-给大家展示一下结果，这是从200MeV到200GeV分了10个bin的：
-![SED](sed/M87_sed.png)
