@@ -35,7 +35,7 @@ do
 
   flag=1 || flag=0
 
-  [[ "x$flag" = "x0" ] && continue
+  [[ "x$flag" = "x0" ]] && continue
 
   flux=`egrep "$par_srcname|Flux" $file_result_final | grep $par_srcname -A 1 | grep Flux | cut -d "'" -f 4 | sed 's/\+\/-//'`
   TS=`egrep "$par_srcname|TS" $file_result_final | grep $par_srcname -A 1 | grep TS | cut -d "'" -f 4`
