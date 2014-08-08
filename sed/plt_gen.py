@@ -8,8 +8,8 @@ x = np.sqrt(emin * emax)
 y = flux * emin * emax / (emax - emin)
 yerr = fluxErr * emin * emax / (emax - emin)
 
-xmin = emin.min() / 1.2
-xmax = emax.max() * 1.2
+xmin = emin.min()
+xmax = emax.max()
 
 ymin = (y - yerr).min()
 ymax = (y + yerr).max()
@@ -42,8 +42,12 @@ for xv, yv, ye, ts in zip(x, y, yerr, TS):
         arrow_number += 1
         ymin = min(yv / arrow_end, ymin)
 
-ymin /= 2.0
-ymax *= 2.0
+xr = xmax / xmin
+yr = ymax / ymin
+xmin /= xr ** (1.0 / 30)
+xmax *= xr ** (1.0 / 30)
+ymin /= yr ** (1.0 / 10)
+ymax *= yr ** (1.0 / 5)
 
 for i in xrange(len(f)):
     f[i] = f[i].replace('srcname', srcname)
