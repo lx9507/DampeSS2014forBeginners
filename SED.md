@@ -132,7 +132,7 @@ gnuplot sed.plt
 100.236   199.998  2.32e-11     0            -1e9
 ```
 
-**<font color="blue">代码中的一些细节处理建议大家仔细看一下。</font>**
+<font color="blue">代码中的一些细节处理建议大家仔细看一下。</font>
 
 ## 最终结果
 
