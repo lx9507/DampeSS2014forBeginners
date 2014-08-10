@@ -38,23 +38,29 @@ M87
 par_srcname=M87
 par_irfs=P7REP_SOURCE_V15
 
-file_filtered=../data_unbinned/"$par_srcname".fits
-file_filtered_gti="$par_srcname"_gti.fits
+file_filtered=../data_unbinned/${par_srcname}.fits
+file_filtered_gti=${par_srcname}_gti.fits
 file_spacecraft=~/data_Fermi/spacecraft.fits
-file_cmap="$par_srcname"_cmap.fits
-file_ltcube="$par_srcname"_ltcube.fits
-file_expmap="$par_srcname"_expmap.fits
+file_cmap=${par_srcname}_cmap.fits
+file_ltcube=${par_srcname}_ltcube.fits
+file_expmap=${par_srcname}_expmap.fits
 file_model_initial=model_input_binned.xml
 file_model_1st=model_1st_binned.xml
 file_model_final=model_output_binned.xml
 file_model_tsmap_resi=model_tsmap_resi.xml
-file_tsmap_resi="$par_srcname"_tsmap_resi.fits
+file_tsmap_resi=${par_srcname}_tsmap_resi.fits
 
 position=`gtvcut $file_filtered EVENTS | sed -n '/CIRCLE/ s/.*(\(.*\))/\1/p'`
-par_ra=`echo $position | cut -d , -f 1` 
+par_ra=`echo $position | cut -d , -f 1`
 par_dec=`echo $position | cut -d , -f 2`
-par_emin=200
-par_emax=200000
+energies=`gtvcut $file_filtered EVENTS | grep -A 2 ENERGY | grep VAL | cut -d ' ' -f 2`
+par_emin=`echo $energies | cut -d : -f 1`
+par_emax=`echo $energies | cut -d : -f 2`
+
+par_srcrad=20
+par_nlong=200
+par_nlat=200
+par_nenergies=30
 ```
 
 ## 与飞船有关的计算
@@ -73,9 +79,9 @@ gtltcube evfile=$file_filtered_gti scfile=$file_spacecraft outfile=$file_ltcube 
 
 #python gtltcube_mp.py 5 $file_spacecraft $file_filtered_gti $file_ltcube --zmax 100 &&
 
-gtexpmap evfile=$file_filtered_gti scfile=$file_spacecraft expcube=$file_ltcube outfile=$file_expmap irfs=$par_irfs srcrad=20 nlong=200 nlat=200 nenergies=30 &&
+gtexpmap evfile=$file_filtered_gti scfile=$file_spacecraft expcube=$file_ltcube outfile=$file_expmap irfs=$par_irfs srcrad=$par_srcrad nlong=$par_nlong nlat=$par_nlat nenergies=$par_nenergies &&
 
-#python gtexpmap_mp.py 200 200 5 5 $file_spacecraft $file_filtered_gti $file_ltcube $par_irfs 20 30 $file_expmap &&
+#python gtexpmap_mp.py $par_nlong $par_nlat 5 5 $file_spacecraft $file_filtered_gti $file_ltcube $par_irfs $par_srcrad $par_nenergies $file_expmap &&
 
 echo
 ```
