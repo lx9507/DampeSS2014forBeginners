@@ -2,7 +2,8 @@ import sys
 import numpy as np
 
 srcname = sys.argv[1]
-emin, emax, flux, fluxErr, TS = np.loadtxt('flux.dat', dtype=float, unpack=True)
+emin, emax, flux, fluxErr, TS = np.loadtxt(
+    'flux.dat', dtype=float, unpack=True)
 
 x = np.sqrt(emin * emax)
 y = flux * emin * emax / (emax - emin)
@@ -11,8 +12,8 @@ yerr = fluxErr * emin * emax / (emax - emin)
 xmin = emin.min()
 xmax = emax.max()
 
-ymin = (y - yerr).min()
-ymax = (y + yerr).max()
+ymin = (y - yerr)[np.where(y > yerr)].min()
+ymax = (y + yerr)[np.where(y > yerr)].max()
 
 fin = open('sed.plt.in')
 f = fin.readlines()
@@ -28,7 +29,7 @@ def ins():
 inspnt = f.index('#set arrow\n')
 f.remove(f[inspnt])
 
-arrow_end = 3
+arrow_end = 3.0
 arrow_number = 1
 if not isinstance(x, np.ndarray):
     '''Only one line in flux.dat'''
