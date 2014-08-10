@@ -10,7 +10,7 @@ file_srcMaps, file_expCube, file_binnedExpMap, file_srcModel = sys.argv[6: 10]
 
 obs = BinnedObs(srcMaps=file_srcMaps, expCube=file_expCube,
                 binnedExpMap=file_binnedExpMap, irfs=par_irfs)
-like = BinnedAnalysis(obs, srcModel=file_srcModel, optimizer='NEWMINUIT')
+like = BinnedAnalysis(obs, srcModel=file_srcModel, optimizer='NewMinuit')
 
 like.fit(verbosity=0, covar=True)
 like.Ts(par_srcname)
