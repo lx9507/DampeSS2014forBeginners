@@ -35,7 +35,7 @@ if not isinstance(x, np.ndarray):
     '''Only one line in flux.dat'''
     (x, y, yerr, TS) = ([x], [y], [yerr], [TS])
 for xv, yv, ye, ts in zip(x, y, yerr, TS):
-    if abs(ye) < 1e-6 and abs(ts + 1e9) < 1:
+    if abs(ye) < 1e-30 and abs(ts + 1e9) < 1e-20:
         f.insert(ins(), 'set arrow ' + str(arrow_number) + ' from '
                  + str(xv) + ',' + str(yv) + ' to '
                  + str(xv) + ',' + str(yv / arrow_end)
