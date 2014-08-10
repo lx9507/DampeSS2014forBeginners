@@ -133,7 +133,7 @@ mymodel.makeModel(pathtodiffusefiles + '/gll_iem_v05_rev1.fit',
 1. **增加目标源**（如不在2FGL中），或修改目标源名称以便识别（如在2FGL中），后者不是必须；  
 2. **固定一部分参数**以降低不必要的计算量。
 
-## Binned likelihood
+## Unbinned likelihood
 
 gtdiffrsp, gtlike.
 
