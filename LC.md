@@ -181,6 +181,7 @@ SED用的是BinnedLikelihood，LC用的是UnbinnedLikelihood.
 
 假定无光变，则流量为一常数，用最小二乘法拟合出该常数，并计算对应的Q检验量。
 最小二乘的Q检验量是服从自由度为N-1的卡方分布的，于是可以作为是否有明显光变的判据。  
+该方法等价于minimum chi squar拟合。  
 [fit.py](lc/fit.py)
 ```python
 import numpy as np
@@ -213,6 +214,7 @@ print 'chi2 / dof =', chi2, '/', dof, '=', chi2 / dof
 
 ### 两种方法的适应性
 
-方法一对error很小的数据点非常敏感，方法二对error很大的数据点非常敏感。  
-所以，在使用方法一时，要注意检查是否有error不合理地过小的数据点；
+* 在error比较正常时，可以证明，方法一与方法二是等效的。  
+* 方法一对error很小的数据点非常敏感，方法二对error很大的数据点非常敏感。  
+* 所以，在使用方法一时，要注意检查是否有error不合理地过小的数据点；
 在使用方法二时，要注意检查是否有error不合理地过大的数据点。
