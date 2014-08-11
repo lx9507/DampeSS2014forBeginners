@@ -10,7 +10,7 @@ file_eventFile, file_scFile, file_expMap, file_expCube, file_srcModel = sys.argv
 
 obs = UnbinnedObs(eventFile=file_eventFile, scFile=file_scFile,
                   expMap=file_expMap, expCube=file_expCube, irfs=par_irfs)
-like = BinnedAnalysis(obs, srcModel=file_srcModel, optimizer='NewMinuit')
+like = UnbinnedAnalysis(obs, srcModel=file_srcModel, optimizer='NewMinuit')
 
 like.fit(verbosity=0, covar=True)
 like.Ts(par_srcname)
