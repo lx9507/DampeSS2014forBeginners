@@ -1,0 +1,16 @@
+set term post eps solid enhanced color "Helvetica" 24 dl 4
+set out "srcname_lc.eps"
+set tics scale 2
+set xlabel 'Time(MET) [s]'
+set ylabel 'counts [cm^{-2} s^{-1}]'
+set xr
+set yr
+set xtics 6e7
+#set mytics 10
+#set log y
+#set format y '10^{%L}'
+set key font ',18'
+
+#set arrow
+
+plot 'flux.dat' u (($1 + $2) / 2) : 3 : 1 : 2 : ($3 - $4) : ($3 + $4)  t 'srcname' w xye pt 7 ps 0.8 lw 2 lc rgb 'red'
